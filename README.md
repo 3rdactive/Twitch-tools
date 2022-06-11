@@ -8,7 +8,7 @@ Please remember that this toolset is covered by BSD-2-Clause
 
 BSD 2-Clause License
 
-Copyright (c) [2022], [dror epsh]
+Copyright (c) 2022, dror epsh
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
