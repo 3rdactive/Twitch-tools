@@ -20,7 +20,7 @@ var alertMessages = {
     "hungerReachLevel2":"Hey. i want some food! can you please feed me with {FEEDCOMMANDNAME}? (. _. ) im getting hungry",
     "hungerReachLevel3":"Ermm im REALLY hungry... can you please feed me with {FEEDCOMMANDNAME}... ;-; please i am very hungry...",
     "hungerReachLevel4":"Listen im starving here... PLEASE FEED ME WITH {FEEDCOMMANDNAME} I WANT FOOD D:<",
-    "hungerReachLevel5":"i- nee- foo- pleaa- give me fo- *{PETNAME} collapses to the ground unable to move he will need your help to get him up! use {WAKEUPCOMMANDNAME}* "
+    "hungerReachLevel5":"i- nee- foo- pleaa- give me fo- "
 }   
 
 function feedMessage(){
