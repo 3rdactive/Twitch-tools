@@ -18,7 +18,7 @@ meaning if you modify the code or re-write it. you must also link your project u
 
 
 How to use:
-1. Authenticate your connection:
+• Authenticate your connection:
 the first step (and most important one) is to authenticate your account!
 this bot does not have an account of its own, that means your going to have to use an account you own
 for the bot client. we suggest not using your main account so chatters wont confuse your chats with the bot's message
@@ -44,7 +44,8 @@ and now, the last thing is this line:
 var Channel = "";
 
 This is fairly simple, insert the name of your channel (the channel the bot should run on) inside the brackets
-2. Overlay:
+
+ • Overlay:
 Now its time to make your little pet show up on stream!
 following is the steps to implement in all supported streaming services:
 • Obs:
