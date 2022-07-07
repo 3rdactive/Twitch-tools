@@ -34,7 +34,8 @@ var SleepingTicks = 0;
 client.on('message', (channel, tags, message, self) => {
 	// Ignore echoed messages.
 	//if(self) return;
-	this.channel=channel;
+	try {
+		this.channel=channel;
 	if(message.toLowerCase() === '!credits' || message.toLowerCase() === '!creator' || message.toLowerCase() === '!credit') {
 		// "@alca, heya!"
 		client.say(channel, `@${tags.username}, heya! this bot was made by @3rdactive and you can find my twitch toolset on here! github.com/3rdactive/Twitch-tools`);
@@ -42,11 +43,11 @@ client.on('message', (channel, tags, message, self) => {
 	if(message.toLowerCase()===FEEDCOMMANDNAME){
 
 		if(SleepingTicks>0){
-			client.say(channel, `@${tags.username}, zzzzzzz... zzzzzzzzzz....`);
+			client.say(channel, `@${tags.username},` + ProccessRegix(commandResponses.Feed.IfSleep));
 		}
 		else
 		if(apetite<1){
-			client.say(channel, `@${tags.username}, Thanks for feeding me! ^-^`);
+			client.say(channel, `@${tags.username},` + ProccessRegix(commandResponses.Feed.IfSuccessFull));
 			apetite=getRandomArbitrary(2,15)*60;
 			hungerLevel=0;
 			state="eat";
@@ -55,18 +56,28 @@ client.on('message', (channel, tags, message, self) => {
 			},getRandomArbitrary(1500,2500));
 		}
 		else{
-			client.say(channel, `@${tags.username}, im not really hungry right now... maybe in `+ Math.ceil(apetite/60) + ` minutes?`);
+			client.say(channel, `@${tags.username},` + ProccessRegix(commandResponses.Feed.IfApetiteFull));
 		}
 	}
 	if(message.toLowerCase()==SLEEPCOMMANDNAME){
 		if(TiredTicks>0){
-			client.say(channel, `@${tags.username}, im not really sleepy right now... maybe in `+ Math.ceil(TiredTicks/60) + ` minutes?`);
+			client.say(channel, `@${tags.username},`+commandResponses.Sleep.IfNotTired);
+		}
+		else if(SleepingTicks>0){
+			client.say(channel, `@${tags.username},`+commandResponses.Sleep.IfSleep);
 		}
 		else{
-			client.say(channel, `@${tags.username}, good... nigh- night... Zzzzzz... ZZZzzzzzz... ZZZZZzzzzzzzzz...`);
+			client.say(channel, `@${tags.username},`+commandResponses.Sleep.IfSuccessFull);
 			SleepingTicks=getRandomInt(120,1200);
 		}
 	}
+	if(message.toLowerCase()==HELPCOMMANDNAME){
+		client.say(channel, ProccessRegix(`@${tags.username}, all avilable commands: {SLEEPCOMMANDNAME} | send your pet to sleep if their tired. {FEEDCOMMANDNAME} | feeds your pet!`));
+	}
+	} catch (error) {
+		client.say(channel, `@${tags.username}, an internal error occoured {${error.toString()}}... you can report it on https://github.com/3rdactive/Twitch-tools/issues/new?assignees=3rdactive&labels=&template=bug_report.md&title=Bug+report`);
+	}
+	
 });
 setInterval(function tick(){
 	if(SleepingTicks>0){
@@ -74,15 +85,15 @@ setInterval(function tick(){
 		SleepingTicks--;
 		if(SleepingTicks<1){
 			state="idle";
-			client.say(channel,`ZZZzzzzzz... ZZzzz- a. ahh... Aoh.. He- Hello... Mornin!`);
+			client.say(channel,ProccessRegix(alertMessages.sleepOver));
 			TiredTicks = getRandomArbitrary(480,1200);
 		}
 	}
-	else if(TiredTicks>-120){
+	else if(TiredTicks>-600){
 		TiredTicks--;
-		if(TiredTicks<-120){
+		if(TiredTicks<-600){
 			SleepingTicks=getRandomInt(120,1200);
-			client.say(channel,`Im realllly tired... im go- gonna go t- to- slee- Zzzzzzzzz... ZZZzzzzzzzzzzz... Zzzz...`);
+			client.say(channel,ProccessRegix(alertMessages.tiredPassOut));
 		} 
 	}
 	if(apetite>0&&hungerLevel<1&&SleepingTicks<1){

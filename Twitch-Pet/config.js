@@ -20,8 +20,26 @@ var alertMessages = {
     "hungerReachLevel2":"Hey. i want some food! can you please feed me with {FEEDCOMMANDNAME}? (. _. ) im getting hungry",
     "hungerReachLevel3":"Ermm im REALLY hungry... can you please feed me with {FEEDCOMMANDNAME}... ;-; please i am very hungry...",
     "hungerReachLevel4":"Listen im starving here... PLEASE FEED ME WITH {FEEDCOMMANDNAME} I WANT FOOD D:<",
-    "hungerReachLevel5":"i- nee- foo- pleaa- give me fo- "
+    "hungerReachLevel5":"i- nee- foo- pleaa- give me fo- *{PETNAME} collapses to the ground unable to move he will need your help to get him up! use {WAKEUPCOMMANDNAME}* ",
+    "tiredPassOut":"Im realllly tired... im go- gonna go t- to- slee- Zzzzzzzzz... ZZZzzzzzzzzzzz... Zzzz...",
+    "sleepOver":"ZZZzzzzzz... ZZzzz- a. ahh... Aoh.. He- Hello... Mornin!"
 }   
+
+var commandResponses = {
+    Feed:{
+        IfSleep:"zzzzzzz... zzzzzzzzzz.... *{PETNAME} is sleeping, to wake them up use {WAKEUPCOMMANDNAME}*",
+        IfSuccessFull:"Thanks for feeding me! ^-^",
+        IfApetiteFull:" im not really hungry right now... maybe in {APETITE} minutes?"
+    },
+    Sleep:{
+        IfSuccessFull:"good... nigh- YAWWWN.. Zzzzzz... ZZZzzzzzz... ZZZZZzzzzzzzzz...",
+        IfSleep:"Zzzzzzz... Zzzzz... *why are you telling {PETNAME} to sleep when hes already sleeping?*",
+        IfNotTired:"im not really sleepy right now... maybe in {TIRED} minutes?"
+    },
+    WakeUp:{
+
+    }
+}
 
 function feedMessage(){
     var FeedMessages =  ["Thanks for feeding me!! ^-^","Yay i got some food :D","I was so hungry, thank you! ^o^","FINNALY SOME FOOD.. I WAS STARVING THANK YOU ;-;"]
@@ -30,10 +48,11 @@ function feedMessage(){
 
 var HungerLevelIncreaseMS = 600000;
 
-var FEEDCOMMANDNAME = "!feed"
-var WAKEUPCOMMANDNAME = "!wakeup"
-var DRINKCOMMANDNAME = "!drink"
-var SLEEPCOMMANDNAME = "!sleep"
+var FEEDCOMMANDNAME = "?feed"
+var WAKEUPCOMMANDNAME = "?wakeup"
+var DRINKCOMMANDNAME = "?drink"
+var SLEEPCOMMANDNAME = "?sleep"
+var HELPCOMMANDNAME = "?help"
 var PETNAME = "Crebbo"
 
 
@@ -44,6 +63,9 @@ function ProccessRegix(string = "Example text"){
     string = string.replace(/{WAKEUPCOMMANDNAME}/gi,WAKEUPCOMMANDNAME);
     string = string.replace(/{DRINKCOMMANDNAME}/gi,DRINKCOMMANDNAME);
     string = string.replace(/{SLEEPCOMMANDNAME}/gi,SLEEPCOMMANDNAME);
+    string = string.replace(/{HELPCOMMANDNAME}/gi,HELPCOMMANDNAME);
     string = string.replace(/{PETNAME}/gi,PETNAME);
+    string = string.replace(/{APETITE}/gi,Math.ceil(apetite/60));
+    string = string.replace(/{TIRED}/gi,Math.ceil(TiredTicks/60));
     return string;
 }
